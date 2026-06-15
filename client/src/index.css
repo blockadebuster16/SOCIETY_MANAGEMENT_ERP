@@ -1,0 +1,205 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-gold: #D4AF37;
+    --color-gold-dark: #AA820A;
+    --color-gold-light: #F0CB55;
+    --color-navy: #0A1628;
+    --color-navy-deep: #060F1C;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Outfit', 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #060F1C;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #D4AF37;
+    border-radius: 0;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #F0CB55;
+  }
+
+  ::selection {
+    background: #D4AF37;
+    color: #060F1C;
+  }
+}
+
+/* ──────────────── Utility classes ──────────────── */
+
+.transition-theme {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gold-gradient {
+  background: linear-gradient(135deg, #D4AF37 0%, #AA820A 100%);
+}
+
+.blue-gradient {
+  background: linear-gradient(135deg, #0A1628 0%, #060F1C 100%);
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ──────────────── Luxury editorial typography ──────────────── */
+
+.editorial-heading {
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.mono-label {
+  font-family: 'Outfit', system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  font-size: 0.6rem;
+}
+
+/* ──────────────── Gold line accent ──────────────── */
+
+.gold-line::before {
+  content: '';
+  display: inline-block;
+  width: 2rem;
+  height: 1px;
+  background: #D4AF37;
+  vertical-align: middle;
+  margin-right: 0.75rem;
+}
+
+/* ──────────────── Hover image scale ──────────────── */
+
+.scale-108 {
+  --tw-scale-x: 1.08;
+  --tw-scale-y: 1.08;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+/* ──────────────── Custom animation classes ──────────────── */
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes shimmer-gold {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.shimmer-gold {
+  background: linear-gradient(90deg, #D4AF37, #F0CB55, #D4AF37, #AA820A, #D4AF37);
+  background-size: 200% auto;
+  animation: shimmer-gold 4s linear infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ──────────────── Luxury button styles ──────────────── */
+
+.btn-gold {
+  background: linear-gradient(135deg, #D4AF37 0%, #AA820A 100%);
+  color: #060F1C;
+  font-weight: 800;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 1rem 2rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 24px rgba(212, 175, 55, 0.25);
+}
+
+.btn-gold:hover {
+  background: linear-gradient(135deg, #E5C142 0%, #C49A0D 100%);
+  box-shadow: 0 12px 32px rgba(212, 175, 55, 0.40);
+  transform: translateY(-1px);
+}
+
+.btn-outline-gold {
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  color: #D4AF37;
+  font-weight: 700;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 1rem 2rem;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-gold:hover {
+  border-color: #D4AF37;
+  background: rgba(212, 175, 55, 0.08);
+}
+
+/* ──────────────── Luxury card border animation ──────────────── */
+
+.card-luxury {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.card-luxury::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #D4AF37, #AA820A);
+  transition: width 0.4s ease;
+}
+
+.card-luxury:hover::after {
+  width: 100%;
+}
+
+/* ──────────────── Section spacing ──────────────── */
+
+.section-padding {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+
+@media (min-width: 1024px) {
+  .section-padding {
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+  }
+}

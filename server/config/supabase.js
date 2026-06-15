@@ -491,7 +491,7 @@ const createMockSupabaseClient = () => {
   };
 };
 
-const isMock = env.supabaseUrl.includes('mock');
+const isMock = !env.supabaseUrl || env.supabaseUrl.trim() === '' || env.supabaseUrl.includes('mock') || env.supabaseUrl.includes('your-supabase');
 
 export const supabase = isMock ? createMockSupabaseClient() : createClient(env.supabaseUrl, env.supabaseAnonKey);
 

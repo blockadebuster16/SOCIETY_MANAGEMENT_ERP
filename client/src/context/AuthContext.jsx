@@ -29,9 +29,9 @@ export function AuthProvider({ children }) {
 
       const response = await api.get('/auth/profile');
       if (response.data && response.data.success) {
-        setUser(response.data.data);
+        setUser(response.data.user || response.data.data);
       } else {
-        setUser(response.data.user || response.data);
+        logout();
       }
     } catch (error) {
       console.error('Failed to fetch user profile:', error);

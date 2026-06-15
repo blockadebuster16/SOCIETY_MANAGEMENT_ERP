@@ -23,7 +23,7 @@ export function Sidebar({
 
       {/* Sidebar Panel */}
       <aside
-        className={`fixed md:static inset-y-0 left-0 z-40 w-64 bg-society-primary text-white flex flex-col transform transition-transform duration-300 ease-in-out md:translate-x-0 border-r border-slate-800/50 ${
+        className={`fixed md:static inset-y-0 left-0 z-40 w-64 shrink-0 bg-society-primary text-white flex flex-col transform transition-transform duration-300 ease-in-out md:translate-x-0 border-r border-slate-800/50 ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >

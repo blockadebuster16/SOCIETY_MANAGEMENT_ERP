@@ -6,7 +6,8 @@ import {
   listResidents,
   assignProperty as assignPropertyService,
   removePropertyAssignment,
-  listPropertyResidents
+  listPropertyResidents,
+  bulkImportResidents
 } from '../services/residentService.js';
 
 export const createResident = async (req, res, next) => {
@@ -16,6 +17,24 @@ export const createResident = async (req, res, next) => {
       success: true,
       message: 'Resident registered successfully',
       resident
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const bulkImport = async (req, res, next) => {
+  try {
+    const residents = req.body.residents;
+    if (!Array.isArray(residents)) {
+      return res.status(400).json({ success: false, message: 'Invalid data format. Expected an array of residents.' });
+    }
+
+    const results = await bulkImportResidents(residents);
+    res.status(200).json({
+      success: true,
+      message: 'Bulk import processed',
+      results
     });
   } catch (error) {
     next(error);

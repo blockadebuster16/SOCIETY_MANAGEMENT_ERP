@@ -8,6 +8,7 @@ import {
 import { getPayments, savePayment, getSettings, saveSettings, generateBillingCycle, getResidents } from '../../utils/mockDb';
 import { useToast } from '../../context/ToastContext';
 import { formatCurrency } from '../../utils/formatters';
+import * as XLSX from 'xlsx';
 
 function ManagePayments() {
   const { addToast } = useToast();
@@ -668,6 +669,18 @@ function ManagePayments() {
               </div>
 
               <div className="flex flex-wrap gap-3">
+                <button 
+                  onClick={() => {
+                    const ws = XLSX.utils.json_to_sheet(filteredPayments);
+                    const wb = XLSX.utils.book_new();
+                    XLSX.utils.book_append_sheet(wb, ws, "Payments_Ledger");
+                    XLSX.writeFile(wb, "Payments_Ledger_Export.xlsx");
+                    addToast('Excel export downloaded.', 'success');
+                  }}
+                  className="flex items-center gap-2 bg-slate-100 text-slate-700 font-bold px-4 py-2 border border-slate-200 dark:border-slate-800 rounded-lg text-xs tracking-wider uppercase transition shadow-sm hover:bg-slate-200"
+                >
+                  <span>Export</span>
+                </button>
                 <select
                   value={cycleFilter}
                   onChange={(e) => setCycleFilter(e.target.value)}

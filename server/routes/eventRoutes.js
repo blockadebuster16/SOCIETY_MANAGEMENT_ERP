@@ -21,20 +21,21 @@ import {
 } from '../validators/eventValidator.js';
 import { verifyToken, restrictTo } from '../middleware/authMiddleware.js';
 import { upload } from '../middleware/uploadMiddleware.js';
+import { cacheMiddleware } from '../middleware/cacheMiddleware.js';
 
 const router = Router();
 
 // Retrieve events list
-router.get('/', verifyToken, getEvents);
+router.get('/', verifyToken, cacheMiddleware(300), getEvents);
 
 // Retrieve upcoming events
-router.get('/upcoming', verifyToken, getUpcoming);
+router.get('/upcoming', verifyToken, cacheMiddleware(300), getUpcoming);
 
 // Retrieve past events
-router.get('/past', verifyToken, getPast);
+router.get('/past', verifyToken, cacheMiddleware(300), getPast);
 
 // Retrieve specific event details
-router.get('/:id', verifyToken, validateUuidParam, getEvent);
+router.get('/:id', verifyToken, validateUuidParam, cacheMiddleware(300), getEvent);
 
 // Schedule a new event (admin roles only)
 router.post(

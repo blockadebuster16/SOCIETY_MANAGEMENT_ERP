@@ -54,6 +54,26 @@ export const createResident = async (userData) => {
   return profile;
 };
 
+export const bulkImportResidents = async (residentsArray) => {
+  const results = {
+    successful: 0,
+    failed: 0,
+    errors: []
+  };
+
+  for (const residentData of residentsArray) {
+    try {
+      await createResident(residentData);
+      results.successful++;
+    } catch (error) {
+      results.failed++;
+      results.errors.push(`Failed to import ${residentData.email}: ${error.message}`);
+    }
+  }
+
+  return results;
+};
+
 export const updateResident = async (residentId, updateData) => {
   const { data, error } = await supabaseAdmin
     .from('users')

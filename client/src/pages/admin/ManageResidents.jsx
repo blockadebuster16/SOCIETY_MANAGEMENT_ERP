@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Search, Plus, UserCheck, UserX, Trash2, Edit2, 
-  X, Filter, Sparkles, Phone, Mail, Home, Calendar, Users
+  X, Filter, Sparkles, Phone, Mail, Home, Calendar, Users, Download, Upload
 } from 'lucide-react';
 import { getResidents, saveResident, deleteResident } from '../../utils/mockDb';
 import { useToast } from '../../context/ToastContext';
+import * as XLSX from 'xlsx';
+import api from '../../services/api';
 
 function ManageResidents() {
   const { addToast } = useToast();
@@ -13,6 +15,7 @@ function ManageResidents() {
   const [searchQuery, setSearchQuery] = useState('');
   const [wingFilter, setWingFilter] = useState('ALL'); // 'ALL' | 'A' | 'B'
   const [isSlideOverOpen, setIsSlideOverOpen] = useState(false);
+  const fileInputRef = useRef(null);
   
   // Form State
   const [editingResident, setEditingResident] = useState(null);
@@ -110,6 +113,50 @@ function ManageResidents() {
     }
   };
 
+  const handleExportExcel = () => {
+    const ws = XLSX.utils.json_to_sheet(residents);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Residents");
+    XLSX.writeFile(wb, "Residents_Export.xlsx");
+    addToast('Excel export downloaded.', 'success');
+  };
+
+  const handleImportExcel = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = async (event) => {
+      try {
+        const bstr = event.target.result;
+        const wb = XLSX.read(bstr, { type: 'binary' });
+        const wsname = wb.SheetNames[0];
+        const ws = wb.Sheets[wsname];
+        const data = XLSX.utils.sheet_to_json(ws);
+        
+        // Transform headers to match backend expectations
+        const formattedData = data.map(row => ({
+          firstName: row.name ? row.name.split(' ')[0] : 'Unknown',
+          lastName: row.name && row.name.split(' ').length > 1 ? row.name.split(' ').slice(1).join(' ') : '',
+          email: row.email,
+          phone: row.phone,
+          role: 'resident',
+          status: 'Active'
+        }));
+
+        const res = await api.post('/residents/bulk-import', { residents: formattedData });
+        if (res.data.success) {
+          addToast(`Imported ${res.data.results.successful} residents successfully!`, 'success');
+          loadResidents(); // Refresh the list
+        }
+      } catch (error) {
+        console.error("Excel Import Error:", error);
+        addToast("Error importing from Excel.", 'error');
+      }
+    };
+    reader.readAsBinaryString(file);
+  };
+
   // Filter residents
   const filteredResidents = residents.filter(res => {
     const matchesSearch = res.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
@@ -129,13 +176,38 @@ function ManageResidents() {
           <h2 className="text-2xl font-bold text-society-primary dark:text-white">Society Registry Directory</h2>
           <p className="text-slate-555 dark:text-slate-400 text-xs mt-1">Audit, modify member flats allocation, onboard tenants, and configure property listings.</p>
         </div>
-        <button 
-          onClick={handleOpenCreate}
-          className="flex items-center gap-2 bg-society-primary text-white dark:bg-society-secondary dark:text-society-primary font-bold px-4 py-2.5 rounded-lg text-xs tracking-wider uppercase transition shadow-sm hover:opacity-90 active:scale-95"
-        >
-          <Plus className="w-4 h-4" />
-          <span>Onboard Resident</span>
-        </button>
+        <div className="flex items-center gap-2">
+          <input 
+            type="file" 
+            accept=".xlsx, .xls" 
+            ref={fileInputRef} 
+            onChange={handleImportExcel} 
+            className="hidden" 
+          />
+          <button 
+            onClick={() => fileInputRef.current.click()}
+            className="flex items-center gap-2 bg-slate-100 text-slate-700 font-bold px-4 py-2.5 rounded-lg text-xs tracking-wider uppercase transition shadow-sm hover:bg-slate-200"
+          >
+            <Upload className="w-4 h-4" />
+            <span>Import</span>
+          </button>
+          
+          <button 
+            onClick={handleExportExcel}
+            className="flex items-center gap-2 bg-slate-100 text-slate-700 font-bold px-4 py-2.5 rounded-lg text-xs tracking-wider uppercase transition shadow-sm hover:bg-slate-200"
+          >
+            <Download className="w-4 h-4" />
+            <span>Export</span>
+          </button>
+
+          <button 
+            onClick={handleOpenCreate}
+            className="flex items-center gap-2 bg-society-primary text-white dark:bg-society-secondary dark:text-society-primary font-bold px-4 py-2.5 rounded-lg text-xs tracking-wider uppercase transition shadow-sm hover:opacity-90 active:scale-95"
+          >
+            <Plus className="w-4 h-4" />
+            <span>Onboard Resident</span>
+          </button>
+        </div>
       </div>
 
       {/* Directory Filters */}

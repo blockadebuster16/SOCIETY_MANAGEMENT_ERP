@@ -6,8 +6,11 @@ import {
   getProfile,
   getResidents,
   assignProperty,
-  removeAssignment
+  removeAssignment,
+  bulkImport
 } from '../controllers/residentController.js';
+
+// ... other imports stay the same ...
 import { getMeComplaints } from '../controllers/complaintController.js';
 
 import {
@@ -26,22 +29,12 @@ router.get('/profile/me', verifyToken, getProfile);
 // Retrieve logged-in user's complaints
 router.get('/me/complaints', verifyToken, getMeComplaints);
 
-
 // Get directory list (admin roles only)
 router.get(
   '/',
   verifyToken,
   restrictTo('committee_member', 'society_manager', 'super_admin'),
   getResidents
-);
-
-// Get specific resident details (admin roles only)
-router.get(
-  '/:id',
-  verifyToken,
-  restrictTo('committee_member', 'society_manager', 'super_admin'),
-  validateUuidParam,
-  getResident
 );
 
 // Create new resident (admin roles only)
@@ -53,6 +46,22 @@ router.post(
   createResident
 );
 
+// Bulk import residents (admin roles only)
+router.post(
+  '/bulk-import',
+  verifyToken,
+  restrictTo('committee_member', 'society_manager', 'super_admin'),
+  bulkImport
+);
+
+// Get specific resident details (admin roles only)
+router.get(
+  '/:id',
+  verifyToken,
+  restrictTo('committee_member', 'society_manager', 'super_admin'),
+  validateUuidParam,
+  getResident
+);
 // Update resident details (admin roles only)
 router.patch(
   '/:id',
@@ -61,7 +70,6 @@ router.patch(
   validateUpdateResidentInput,
   updateResident
 );
-
 // Assign resident to a property (admin roles only)
 router.post(
   '/assign-property',

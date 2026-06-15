@@ -12,10 +12,12 @@ function ChatbotTraining() {
   };
 
   return (
-    <div className="space-y-8">
-      <div className="border-b border-slate-200 pb-4">
-        <h2 className="text-2xl font-bold text-society-primary">AI Chatbot Training Control</h2>
-        <p className="text-slate-500 text-xs mt-1">Train the resident portal assistant with updated guidelines and FAQs.</p>
+    <div className="space-y-8 animate-in fade-in duration-300">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-200 dark:border-slate-800 pb-4 gap-4">
+        <div>
+          <h2 className="text-2xl font-bold text-society-primary dark:text-white">AI Chatbot Training Control</h2>
+          <p className="text-slate-555 dark:text-slate-400 text-xs mt-1">Train the resident portal assistant with updated guidelines and FAQs.</p>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

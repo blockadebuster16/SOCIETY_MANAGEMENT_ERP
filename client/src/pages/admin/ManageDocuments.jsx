@@ -702,7 +702,7 @@ function ManageDocuments() {
   const hasActiveFilters = searchQuery || statusFilter !== 'All' || accessFilter !== 'All';
 
   return (
-    <div className="flex gap-6 min-h-0">
+    <div className="flex gap-6 min-h-0 animate-in fade-in duration-300">
       {/* ── Sidebar Category Explorer */}
       <aside className="w-52 shrink-0 space-y-1">
         <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-2 mb-3">Categories</p>
@@ -747,13 +747,13 @@ function ManageDocuments() {
       {/* ── Main Content */}
       <div className="flex-1 min-w-0 space-y-5">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-slate-200 pb-4">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-200 dark:border-slate-800 pb-4 gap-4">
           <div>
-            <h2 className="text-2xl font-bold text-society-primary flex items-center gap-2">
+            <h2 className="text-2xl font-bold text-society-primary dark:text-white flex items-center gap-2">
               <FolderOpen className="w-6 h-6 text-[#D4AF37]" />
               Document Repository
             </h2>
-            <p className="text-slate-500 text-xs mt-1">
+            <p className="text-slate-555 dark:text-slate-400 text-xs mt-1">
               Official records, minutes, certificates and regulatory documents.
               {usingMockData && (
                 <span className="ml-2 inline-flex items-center gap-1 text-[10px] font-semibold bg-amber-50 text-amber-700 border border-amber-200 rounded-full px-2 py-0.5">

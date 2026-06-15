@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { 
   LayoutDashboard, Users, ShieldAlert, HardDrive, 
-  Activity, Settings 
+  Activity, Settings, User
 } from 'lucide-react';
 import Sidebar from '../components/sidebar/Sidebar';
 import Navbar from '../components/navbar/Navbar';
@@ -16,6 +16,7 @@ function SuperAdminLayout() {
 
   const links = [
     { label: 'System Dashboard', path: '/superadmin/dashboard', icon: <LayoutDashboard className="w-5 h-5" /> },
+    { label: 'Profile Info', path: '/superadmin/profile', icon: <User className="w-5 h-5" /> },
     { label: 'User Accounts', path: '/superadmin/users', icon: <Users className="w-5 h-5" /> },
     { label: 'Role Authority', path: '/superadmin/roles', icon: <ShieldAlert className="w-5 h-5" /> },
     { label: 'File Buckets', path: '/superadmin/storage', icon: <HardDrive className="w-5 h-5" /> },

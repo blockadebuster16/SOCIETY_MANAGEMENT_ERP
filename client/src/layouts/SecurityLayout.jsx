@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Outlet, useNavigate, NavLink, useLocation } from 'react-router-dom';
 import { 
-  Shield, UserCheck, History, ClipboardList, Settings 
+  Shield, UserCheck, History, ClipboardList, Settings, User 
 } from 'lucide-react';
 import Sidebar from '../components/sidebar/Sidebar';
 import Navbar from '../components/navbar/Navbar';
@@ -15,6 +15,7 @@ function SecurityLayout() {
 
   const links = [
     { label: 'Gate Dashboard', path: '/security/dashboard', icon: <Shield className="w-5 h-5" /> },
+    { label: 'Profile Info', path: '/security/profile', icon: <User className="w-5 h-5" /> },
     { label: 'Active Visitors', path: '/security/active-visitors', icon: <UserCheck className="w-5 h-5" /> },
     { label: 'Visitor History', path: '/security/visitor-history', icon: <History className="w-5 h-5" /> },
     { label: 'Incident Logs', path: '/security/incident-logs', icon: <ClipboardList className="w-5 h-5" /> },

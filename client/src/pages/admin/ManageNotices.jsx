@@ -329,15 +329,15 @@ function ManageNotices() {
   const hasActiveFilters = searchQuery || categoryFilter !== 'All' || statusFilter !== 'All';
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8 animate-in fade-in duration-300">
       {/* Header */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-slate-200 pb-5">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-200 dark:border-slate-800 pb-4 gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-society-primary flex items-center gap-2">
+          <h2 className="text-2xl font-bold text-society-primary dark:text-white flex items-center gap-2">
             <Bell className="w-6 h-6 text-[#D4AF37]" />
             Notice Management
           </h2>
-          <p className="text-slate-500 text-xs mt-1">Create, publish, archive and manage all society notices and circulars.</p>
+          <p className="text-slate-555 dark:text-slate-400 text-xs mt-1">Create, publish, archive and manage all society notices and circulars.</p>
           {usingMockData && (
             <span className="mt-1 inline-flex items-center gap-1 text-[10px] font-semibold bg-amber-50 text-amber-700 border border-amber-200 rounded-full px-2 py-0.5">
               <AlertTriangle className="w-2.5 h-2.5" /> Demo Mode — API Offline

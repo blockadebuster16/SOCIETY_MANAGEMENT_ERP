@@ -33,7 +33,7 @@ const OtpVerification = lazy(() => import('../pages/OtpVerification'));
 
 // Resident Pages (Lazy Loaded)
 const ResidentDashboard = lazy(() => import('../pages/resident/Dashboard'));
-const ResidentProfile = lazy(() => import('../pages/resident/Profile'));
+const UserProfile = lazy(() => import('../pages/shared/UserProfile'));
 const ResidentDocuments = lazy(() => import('../pages/resident/Documents'));
 const ResidentDownloads = lazy(() => import('../pages/resident/Downloads'));
 const ResidentComplaints = lazy(() => import('../pages/resident/Complaints'));
@@ -112,7 +112,7 @@ function AppRoutes() {
         <Route path="resident" element={<ProtectedRoute />}>
           <Route element={<ResidentLayout />}>
             <Route path="dashboard" element={<ResidentDashboard />} />
-            <Route path="profile" element={<ResidentProfile />} />
+            <Route path="profile" element={<UserProfile />} />
             <Route path="documents" element={<ResidentDocuments />} />
             <Route path="downloads" element={<ResidentDownloads />} />
             <Route path="complaints" element={<ResidentComplaints />} />
@@ -130,6 +130,7 @@ function AppRoutes() {
         <Route path="admin" element={<AdminRoute />}>
           <Route element={<AdminLayout />}>
             <Route path="dashboard" element={<AdminDashboard />} />
+            <Route path="profile" element={<UserProfile />} />
             <Route path="notices" element={<ManageNotices />} />
             <Route path="notices/new" element={<CreateNotice />} />
             <Route path="notices/:id/edit" element={<EditNotice />} />
@@ -151,6 +152,7 @@ function AppRoutes() {
         <Route path="security" element={<SecurityRoute />}>
           <Route element={<SecurityLayout />}>
             <Route path="dashboard" element={<SecurityDashboard />} />
+            <Route path="profile" element={<UserProfile />} />
             <Route path="active-visitors" element={<ActiveVisitors />} />
             <Route path="visitor-history" element={<VisitorHistory />} />
             <Route path="incident-logs" element={<IncidentLogs />} />
@@ -162,6 +164,7 @@ function AppRoutes() {
         <Route path="superadmin" element={<SuperAdminRoute />}>
           <Route element={<SuperAdminLayout />}>
             <Route path="dashboard" element={<SuperAdminDashboard />} />
+            <Route path="profile" element={<UserProfile />} />
             <Route path="users" element={<UserManagement />} />
             <Route path="roles" element={<RoleManagement />} />
             <Route path="storage" element={<StorageManagement />} />

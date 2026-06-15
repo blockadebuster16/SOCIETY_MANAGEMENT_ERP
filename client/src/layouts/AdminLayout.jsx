@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Outlet, useNavigate, NavLink, useLocation } from 'react-router-dom';
 import { 
   LayoutDashboard, Megaphone, FolderOpen, Calendar, 
-  AlertTriangle, Users, CreditCard, Image, Bot, BarChart3
+  AlertTriangle, Users, CreditCard, Image, Bot, BarChart3, User
 } from 'lucide-react';
 import Sidebar from '../components/sidebar/Sidebar';
 import Navbar from '../components/navbar/Navbar';
@@ -16,6 +16,7 @@ function AdminLayout() {
 
   const links = [
     { label: 'Admin Dashboard', path: '/admin/dashboard', icon: <LayoutDashboard className="w-5 h-5" /> },
+    { label: 'Profile Info', path: '/admin/profile', icon: <User className="w-5 h-5" /> },
     { label: 'Manage Notices', path: '/admin/notices', icon: <Megaphone className="w-5 h-5" /> },
     { label: 'Manage Documents', path: '/admin/documents', icon: <FolderOpen className="w-5 h-5" /> },
     { label: 'Manage Events', path: '/admin/events', icon: <Calendar className="w-5 h-5" /> },

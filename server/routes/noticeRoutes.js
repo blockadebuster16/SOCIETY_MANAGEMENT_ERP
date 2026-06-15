@@ -16,17 +16,18 @@ import {
 } from '../validators/noticeValidator.js';
 import { verifyToken, restrictTo } from '../middleware/authMiddleware.js';
 import { upload } from '../middleware/uploadMiddleware.js';
+import { cacheMiddleware } from '../middleware/cacheMiddleware.js';
 
 const router = Router();
 
 // Retrieve all notices (residents view published/active, admins see all)
-router.get('/', verifyToken, getNotices);
+router.get('/', verifyToken, cacheMiddleware(300), getNotices);
 
 // Retrieve latest notices
-router.get('/latest', verifyToken, getLatest);
+router.get('/latest', verifyToken, cacheMiddleware(300), getLatest);
 
 // Retrieve specific notice details
-router.get('/:id', verifyToken, validateUuidParam, getNotice);
+router.get('/:id', verifyToken, validateUuidParam, cacheMiddleware(300), getNotice);
 
 // Compose a new notice (admin roles only)
 router.post(

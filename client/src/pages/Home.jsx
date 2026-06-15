@@ -389,7 +389,7 @@ function Home() {
       {/* ═══════════════════════════════════════
           SECTION 4 – AMENITIES
           ═══════════════════════════════════════ */}
-      <section className="relative bg-slate-50 dark:bg-[#080E1C] py-24 lg:py-32 overflow-hidden">
+      <section className="relative bg-[#060F1C] py-24 lg:py-32 overflow-hidden">
         {/* Background decorative blob */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-[#D4AF37]/5 rounded-full blur-[120px] pointer-events-none" />
 
@@ -400,29 +400,29 @@ function Home() {
               <span className="text-[#D4AF37] text-[10px] font-bold tracking-[0.35em] uppercase">World-class Facilities</span>
               <span className="w-8 h-[1px] bg-[#D4AF37]" />
             </div>
-            <h2 className="text-3xl lg:text-5xl font-black text-slate-900 dark:text-white mb-4">
+            <h2 className="text-3xl lg:text-5xl font-black text-white mb-4">
               MODERN INFRASTRUCTURE<br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] to-[#AA820A]">
                 & AMENITIES
               </span>
             </h2>
-            <p className="text-slate-500 dark:text-slate-400 max-w-xl mx-auto text-sm leading-relaxed">
+            <p className="text-slate-400 max-w-xl mx-auto text-sm leading-relaxed">
               Designed to ensure safety, environmental sustainability, and unmatched convenience
               for all 137 society units.
             </p>
           </FadeUp>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0 border border-slate-200 dark:border-slate-800">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0 border border-slate-800">
             {amenities.map((item, idx) => {
               const Icon = item.icon;
               return (
                 <FadeUp key={idx} delay={idx * 0.06}>
-                  <div className="group p-8 border-b border-r border-slate-200 dark:border-slate-800 hover:bg-[#D4AF37]/5 transition-all duration-300 cursor-default">
+                  <div className="group p-8 border-b border-r border-slate-800 hover:bg-[#D4AF37]/5 transition-all duration-300 cursor-default">
                     <div className="w-12 h-12 flex items-center justify-center bg-[#D4AF37]/10 group-hover:bg-[#D4AF37]/20 rounded-none mb-6 transition-all duration-300">
                       <Icon className="w-5 h-5 text-[#D4AF37]" />
                     </div>
-                    <h4 className="font-bold text-slate-900 dark:text-white text-sm mb-3 tracking-wide">{item.title}</h4>
-                    <p className="text-slate-500 dark:text-slate-500 text-xs leading-relaxed">{item.desc}</p>
+                    <h4 className="font-bold text-white text-sm mb-3 tracking-wide">{item.title}</h4>
+                    <p className="text-slate-500 text-xs leading-relaxed">{item.desc}</p>
                     <div className="w-6 h-[1px] bg-[#D4AF37] mt-6 group-hover:w-12 transition-all duration-300" />
                   </div>
                 </FadeUp>
@@ -434,7 +434,7 @@ function Home() {
         {/* Amenities full-width image strip */}
         <div className="mt-20 relative h-64 lg:h-80 overflow-hidden">
           <img src={amenitiesImg} alt="Society amenities" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-50 dark:from-[#080E1C] via-transparent to-slate-50 dark:to-[#080E1C]" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#060F1C] via-transparent to-[#060F1C]" />
         </div>
       </section>
 
@@ -554,7 +554,7 @@ function Home() {
       {/* ═══════════════════════════════════════
           SECTION 7 – MAP & DOWNLOADS
           ═══════════════════════════════════════ */}
-      <section className="bg-slate-50 dark:bg-[#060F1C] py-24 lg:py-32">
+      <section className="bg-[#060F1C] py-24 lg:py-32">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
 
@@ -565,12 +565,12 @@ function Home() {
                   <span className="w-6 h-[1px] bg-[#D4AF37]" />
                   <span className="text-[#D4AF37] text-[10px] font-bold tracking-[0.35em] uppercase">Location</span>
                 </div>
-                <h2 className="text-2xl lg:text-3xl font-black text-slate-900 dark:text-white">Society Location</h2>
+                <h2 className="text-2xl lg:text-3xl font-black text-white">Society Location</h2>
               </div>
-              <div className="border border-slate-200 dark:border-slate-800 overflow-hidden rounded-none">
+              <div className="border border-slate-800 overflow-hidden rounded-none">
                 <MapWidget />
               </div>
-              <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+              <div className="flex items-center gap-2 text-xs text-slate-400">
                 <MapPin className="w-4 h-4 text-[#D4AF37]" />
                 Plot-1, Sector-5, Ulwe Node, Wahal, Navi Mumbai, Maharashtra 410206
               </div>
@@ -583,20 +583,20 @@ function Home() {
                   <span className="w-6 h-[1px] bg-[#D4AF37]" />
                   <span className="text-[#D4AF37] text-[10px] font-bold tracking-[0.35em] uppercase">Resources</span>
                 </div>
-                <h2 className="text-2xl lg:text-3xl font-black text-slate-900 dark:text-white">Member Downloads</h2>
+                <h2 className="text-2xl lg:text-3xl font-black text-white">Member Downloads</h2>
               </div>
-              <div className="border border-slate-200 dark:border-slate-800 p-6 space-y-4">
-                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              <div className="border border-slate-800 p-6 space-y-4">
+                <p className="text-xs text-slate-400 leading-relaxed">
                   Access official application formats, NOC letters, and rule books instantly.
                 </p>
                 <div className="space-y-3">
                   {downloads.map((doc, idx) => (
                     <div
                       key={idx}
-                      className="group flex justify-between items-center p-4 border border-slate-100 dark:border-slate-800 hover:border-[#D4AF37]/40 hover:bg-[#D4AF37]/3 transition-all duration-200 cursor-pointer"
+                      className="group flex justify-between items-center p-4 border border-slate-800 hover:border-[#D4AF37]/40 hover:bg-[#D4AF37]/3 transition-all duration-200 cursor-pointer"
                     >
                       <div className="min-w-0 pr-4">
-                        <h4 className="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">{doc.name}</h4>
+                        <h4 className="text-xs font-bold text-slate-200 truncate">{doc.name}</h4>
                         <span className="text-[10px] text-slate-400">{doc.size} · {doc.format}</span>
                       </div>
                       <button

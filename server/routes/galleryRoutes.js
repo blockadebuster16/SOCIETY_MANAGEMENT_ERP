@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { getGalleryPhotos, uploadGalleryPhoto } from '../controllers/galleryController.js';
-import { upload } from '../utils/storage.js';
+import { upload } from '../middleware/uploadMiddleware.js';
 import { cacheMiddleware } from '../middleware/cacheMiddleware.js';
 
 const router = Router();

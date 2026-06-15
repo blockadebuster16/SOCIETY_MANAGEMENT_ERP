@@ -292,7 +292,7 @@ CREATE INDEX IF NOT EXISTS idx_sec_incident_soc ON security_incidents(society_id
 CREATE INDEX IF NOT EXISTS idx_gate_passes_prop ON gate_passes(property_id);
 CREATE INDEX IF NOT EXISTS idx_vehicle_logs_num ON vehicle_logs(vehicle_number);
 CREATE INDEX IF NOT EXISTS idx_delivery_logs_prop ON delivery_logs(property_id);
-CREATE INDEX IF NOT EXISTS idx_notif_logs_user ON notification_logs(recipient_id);
+CREATE INDEX IF NOT EXISTS idx_notif_logs_user ON notification_logs(user_id);
 CREATE INDEX IF NOT EXISTS idx_assets_soc ON assets(society_id);
 CREATE INDEX IF NOT EXISTS idx_meetings_soc ON meetings(society_id);
 CREATE INDEX IF NOT EXISTS idx_resolutions_meet ON meeting_resolutions(meeting_id);

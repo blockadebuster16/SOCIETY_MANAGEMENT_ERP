@@ -11,6 +11,7 @@ import NoticeCard from '../components/notices/NoticeCard';
 import EventCard from '../components/events/EventCard';
 import MapWidget from '../components/map/MapWidget';
 import { useToast } from '../context/ToastContext';
+import api from '../services/api';
 
 import heroBg from '../assets/hero_building.png';
 import amenitiesImg from '../assets/society_amenities.png';
@@ -86,13 +87,14 @@ const stats = [
   { value: 18, suffix: '+', label: 'Years of Legacy' },
 ];
 
-const galleryPreviews = [
-  { title: 'Society Complex Wing', url: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80' },
-  { title: 'Recreational Lawn & Park', url: 'https://images.unsplash.com/photo-1558904541-efa8c3a30fc9?auto=format&fit=crop&w=800&q=80' },
-  { title: 'Society Entrance Gate', url: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=800&q=80' },
-  { title: 'Clubhouse & Lounge', url: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80' },
-  { title: 'Swimming Pool Area', url: 'https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=800&q=80' },
-  { title: 'Security Checkpoint', url: 'https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?auto=format&fit=crop&w=800&q=80' },
+// Hardcoded fallback data in case fetch fails
+const defaultGalleryPreviews = [
+  { title: 'Society Complex Wing', image_url: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80' },
+  { title: 'Recreational Lawn & Park', image_url: 'https://images.unsplash.com/photo-1558904541-efa8c3a30fc9?auto=format&fit=crop&w=800&q=80' },
+  { title: 'Society Entrance Gate', image_url: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=800&q=80' },
+  { title: 'Clubhouse & Lounge', image_url: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80' },
+  { title: 'Swimming Pool Area', image_url: 'https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=800&q=80' },
+  { title: 'Security Checkpoint', image_url: 'https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?auto=format&fit=crop&w=800&q=80' },
 ];
 
 const downloads = [
@@ -142,6 +144,22 @@ function Home() {
   const { addToast } = useToast();
   const [contactForm, setContactForm] = useState({ name: '', email: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [galleryPreviews, setGalleryPreviews] = useState(defaultGalleryPreviews);
+
+  useEffect(() => {
+    const fetchGalleryPreviews = async () => {
+      try {
+        const res = await api.get('/gallery');
+        if (res.data.success && res.data.photos && res.data.photos.length > 0) {
+          // Fall back to default if fewer than 6? We can just slice
+          setGalleryPreviews(res.data.photos.slice(0, 6));
+        }
+      } catch (err) {
+        console.error('Failed to fetch gallery previews', err);
+      }
+    };
+    fetchGalleryPreviews();
+  }, []);
 
   const heroRef = useRef(null);
   const { scrollY } = useScroll();
@@ -534,7 +552,7 @@ function Home() {
                   style={{ height: idx === 0 ? '500px' : '240px' }}
                 >
                   <img
-                    src={img.url}
+                    src={img.image_url}
                     alt={img.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     style={{ transitionTimingFunction: 'cubic-bezier(0.22, 1, 0.36, 1)' }}

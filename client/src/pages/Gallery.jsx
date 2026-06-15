@@ -1,75 +1,39 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight, ZoomIn } from 'lucide-react';
+import api from '../services/api';
 
 function Gallery() {
   const [activeCategory, setActiveCategory] = useState('All');
   const [lightboxIndex, setLightboxIndex] = useState(null);
+  const [images, setImages] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const images = useMemo(() => [
-    { 
-      id: 1, 
-      title: 'Main Entrance Plaza', 
-      desc: 'Entrance plaza with CCTV setup and guard booth.',
-      category: 'Infrastructure',
-      url: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=800&q=80'
-    },
-    { 
-      key: 2,
-      id: 2, 
-      title: 'Recreation Garden', 
-      desc: 'Landscaped lawn, jogging path, and kids play area.',
-      category: 'Amenities',
-      url: 'https://images.unsplash.com/photo-1558904541-efa8c3a30fc9?auto=format&fit=crop&w=800&q=80'
-    },
-    { 
-      id: 3, 
-      title: 'Ganesh Chaturthi Aarti', 
-      desc: 'Annual community festival celebration inside lobby.',
-      category: 'Festivals',
-      url: 'https://images.unsplash.com/photo-1609137144814-7d5267b140d3?auto=format&fit=crop&w=800&q=80'
-    },
-    { 
-      id: 4, 
-      title: 'Solar Panel Array', 
-      desc: 'Green energy rooftop installation supplying commons.',
-      category: 'Infrastructure',
-      url: 'https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=800&q=80'
-    },
-    { 
-      id: 5, 
-      title: 'Society Clubhouse Hall', 
-      desc: 'Fully air-conditioned indoor hall for committee events.',
-      category: 'Amenities',
-      url: 'https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=800&q=80'
-    },
-    { 
-      id: 6, 
-      title: 'Underground Water Systems', 
-      desc: 'Restructured rainwater harvesting pipe grids.',
-      category: 'Infrastructure',
-      url: 'https://images.unsplash.com/photo-1542013936693-8848e574047a?auto=format&fit=crop&w=800&q=80'
-    },
-    {
-      id: 7,
-      title: 'Diwali Lighting Celebration',
-      desc: 'Premium facade illumination of Wings A to D on Diwali.',
-      category: 'Festivals',
-      url: 'https://images.unsplash.com/photo-1512149177596-f817c7ef5d4c?auto=format&fit=crop&w=800&q=80'
-    },
-    {
-      id: 8,
-      title: 'Kids Swimming Pool',
-      desc: 'Maintained kids splash pool near the community garden.',
-      category: 'Amenities',
-      url: 'https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=800&q=80'
-    }
-  ], []);
+  useEffect(() => {
+    const fetchPhotos = async () => {
+      try {
+        const res = await api.get('/gallery');
+        if (res.data.success) {
+          setImages(res.data.photos);
+        }
+      } catch (error) {
+        console.error('Failed to fetch gallery photos', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchPhotos();
+  }, []);
 
-  const categories = ['All', 'Infrastructure', 'Amenities', 'Festivals'];
+  const categories = useMemo(() => {
+    const cats = new Set(images.map(img => img.gallery_albums?.name || 'General'));
+    return ['All', ...Array.from(cats)];
+  }, [images]);
 
   const filteredImages = useMemo(() => {
-    return activeCategory === 'All' ? images : images.filter(img => img.category === activeCategory);
+    return activeCategory === 'All' 
+      ? images 
+      : images.filter(img => (img.gallery_albums?.name || 'General') === activeCategory);
   }, [images, activeCategory]);
 
   const handleNext = (e) => {
@@ -133,7 +97,7 @@ function Gallery() {
             >
               <div className="h-44 overflow-hidden bg-slate-100 dark:bg-slate-800 relative">
                 <img 
-                  src={img.url} 
+                  src={img.image_url} 
                   alt={img.title} 
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
                 />
@@ -143,7 +107,7 @@ function Gallery() {
               </div>
               <div className="p-4 flex-grow flex flex-col justify-center">
                 <h4 className="font-bold text-slate-800 dark:text-slate-200 text-sm truncate">{img.title}</h4>
-                <p className="text-slate-400 dark:text-slate-500 text-[10px] mt-0.5 truncate">{img.desc}</p>
+                <p className="text-slate-400 dark:text-slate-500 text-[10px] mt-0.5 truncate">{img.description || 'Uploaded photo'}</p>
               </div>
             </motion.div>
           ))}
@@ -194,16 +158,16 @@ function Gallery() {
               className="max-w-4xl max-h-[80vh] w-full flex flex-col items-center gap-4 relative"
             >
               <img
-                src={filteredImages[lightboxIndex].url}
+                src={filteredImages[lightboxIndex].image_url}
                 alt={filteredImages[lightboxIndex].title}
                 className="max-w-full max-h-[70vh] object-contain rounded-lg shadow-2xl border border-white/10"
               />
               <div className="text-center text-white space-y-1 px-4 max-w-xl">
                 <span className="inline-block text-[10px] font-bold text-[#D4AF37] uppercase tracking-wider bg-[#D4AF37]/10 px-2 py-0.5 rounded border border-[#D4AF37]/20">
-                  {filteredImages[lightboxIndex].category}
+                  {filteredImages[lightboxIndex].gallery_albums?.name || 'General'}
                 </span>
                 <h3 className="font-extrabold text-base md:text-lg">{filteredImages[lightboxIndex].title}</h3>
-                <p className="text-slate-400 text-xs leading-relaxed">{filteredImages[lightboxIndex].desc}</p>
+                <p className="text-slate-400 text-xs leading-relaxed">{filteredImages[lightboxIndex].description || 'Uploaded photo'}</p>
               </div>
             </motion.div>
           </motion.div>

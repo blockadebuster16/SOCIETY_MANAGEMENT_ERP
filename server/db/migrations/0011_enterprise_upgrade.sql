@@ -296,3 +296,4 @@ CREATE INDEX IF NOT EXISTS idx_notif_logs_user ON notification_logs(user_id);
 CREATE INDEX IF NOT EXISTS idx_assets_soc ON assets(society_id);
 CREATE INDEX IF NOT EXISTS idx_meetings_soc ON meetings(society_id);
 CREATE INDEX IF NOT EXISTS idx_resolutions_meet ON meeting_resolutions(meeting_id);
+ 

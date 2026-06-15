@@ -371,7 +371,7 @@ function Home() {
       {/* ═══════════════════════════════════════
           SECTION 3 – FULL-WIDTH GOLD SEPARATOR
           ═══════════════════════════════════════ */}
-      <section className="bg-gradient-to-r from-[#0A1628] via-[#0F1F3D] to-[#0A1628] py-16">
+      <section className="bg-slate-50 border-y border-slate-200/50 py-16">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((s, i) => (
@@ -379,7 +379,7 @@ function Home() {
                 <div className="text-4xl lg:text-5xl font-black text-[#D4AF37]">
                   <CountUp target={s.value} suffix={s.suffix} />
                 </div>
-                <div className="text-white/50 text-[10px] tracking-[0.25em] uppercase mt-2">{s.label}</div>
+                <div className="text-slate-500 text-[10px] tracking-[0.25em] uppercase mt-2">{s.label}</div>
               </FadeUp>
             ))}
           </div>
@@ -512,7 +512,7 @@ function Home() {
       {/* ═══════════════════════════════════════
           SECTION 6 – GALLERY GRID
           ═══════════════════════════════════════ */}
-      <section className="bg-[#080E1C] py-24 lg:py-32">
+      <section className="bg-slate-50 border-y border-slate-200/50 py-24 lg:py-32">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <FadeUp className="flex justify-between items-end mb-12">
             <div>
@@ -520,7 +520,7 @@ function Home() {
                 <span className="w-6 h-[1px] bg-[#D4AF37]" />
                 <span className="text-[#D4AF37] text-[10px] font-bold tracking-[0.35em] uppercase">Visual Tour</span>
               </div>
-              <h2 className="text-3xl lg:text-5xl font-black text-white">COMPLEX GALLERY</h2>
+              <h2 className="text-3xl lg:text-5xl font-black text-slate-900">COMPLEX GALLERY</h2>
             </div>
             <Link to="/gallery" className="group hidden sm:flex items-center gap-2 text-[11px] font-bold text-[#D4AF37] tracking-widest uppercase border-b border-[#D4AF37]/30 hover:border-[#D4AF37] transition-all pb-0.5">
               Full Album <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
@@ -625,7 +625,7 @@ function Home() {
       {/* ═══════════════════════════════════════
           SECTION 8 – CONTACT DARK
           ═══════════════════════════════════════ */}
-      <section className="relative bg-[#0A1628] py-24 lg:py-32 overflow-hidden">
+      <section className="relative bg-white py-24 lg:py-32 overflow-hidden">
         {/* Decorative elements */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#D4AF37]/5 rounded-full blur-[120px]" />
@@ -641,13 +641,13 @@ function Home() {
                 <span className="w-6 h-[1px] bg-[#D4AF37]" />
                 <span className="text-[#D4AF37] text-[10px] font-bold tracking-[0.35em] uppercase">Reach Us</span>
               </div>
-              <h2 className="text-3xl lg:text-5xl font-black text-white mb-6 leading-tight">
+              <h2 className="text-3xl lg:text-5xl font-black text-slate-900 mb-6 leading-tight">
                 CONTACT<br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] to-[#AA820A]">
                   COMMITTEE OFFICE
                 </span>
               </h2>
-              <p className="text-white/50 text-sm leading-relaxed mb-10">
+              <p className="text-slate-650 text-sm leading-relaxed mb-10">
                 Have questions regarding NOCs, maintenance accounts, parking allotments, or complaints?
                 Our management committee will review and respond within 48 hours.
               </p>
@@ -660,13 +660,13 @@ function Home() {
                   { Icon: Phone, label: 'Emergency', val: '+91 98765 43210 (Security Desk)' },
                 ].map(({ Icon, label, val }) => (
                   <div key={label} className="flex items-start gap-4">
-                    <div className="w-10 h-10 flex items-center justify-center bg-[#D4AF37]/10 flex-shrink-0">
-                      <Icon className="w-4 h-4 text-[#D4AF37]" />
-                    </div>
-                    <div>
-                      <div className="text-[9px] text-white/30 tracking-widest uppercase mb-1">{label}</div>
-                      <div className="text-white/80 text-sm">{val}</div>
-                    </div>
+                     <div className="w-10 h-10 flex items-center justify-center bg-[#D4AF37]/10 flex-shrink-0">
+                       <Icon className="w-4 h-4 text-[#D4AF37]" />
+                     </div>
+                     <div>
+                       <div className="text-[9px] text-slate-400 tracking-widest uppercase mb-1">{label}</div>
+                       <div className="text-slate-700 text-sm">{val}</div>
+                     </div>
                   </div>
                 ))}
               </div>
@@ -677,36 +677,36 @@ function Home() {
               <form onSubmit={handleContactSubmit} className="space-y-5">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-[10px] font-bold text-white/40 tracking-widest uppercase mb-2">Your Name</label>
+                    <label className="block text-[10px] font-bold text-slate-500 tracking-widest uppercase mb-2">Your Name</label>
                     <input
                       type="text"
                       value={contactForm.name}
                       onChange={(e) => setContactForm({ ...contactForm, name: e.target.value })}
                       placeholder="e.g. Parth Patel"
-                      className="w-full px-4 py-3.5 bg-white/5 border border-white/10 focus:border-[#D4AF37]/60 rounded-none text-white text-sm placeholder-white/20 focus:outline-none transition-colors duration-200"
+                      className="w-full px-4 py-3.5 bg-slate-50 border border-slate-200 focus:border-[#D4AF37]/60 rounded-none text-slate-800 text-sm placeholder-slate-400 focus:outline-none transition-colors duration-200"
                       required
                     />
                   </div>
                   <div>
-                    <label className="block text-[10px] font-bold text-white/40 tracking-widest uppercase mb-2">Email Address</label>
+                    <label className="block text-[10px] font-bold text-slate-500 tracking-widest uppercase mb-2">Email Address</label>
                     <input
                       type="email"
                       value={contactForm.email}
                       onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
                       placeholder="e.g. parth@example.com"
-                      className="w-full px-4 py-3.5 bg-white/5 border border-white/10 focus:border-[#D4AF37]/60 rounded-none text-white text-sm placeholder-white/20 focus:outline-none transition-colors duration-200"
+                      className="w-full px-4 py-3.5 bg-slate-50 border border-slate-200 focus:border-[#D4AF37]/60 rounded-none text-slate-800 text-sm placeholder-slate-400 focus:outline-none transition-colors duration-200"
                       required
                     />
                   </div>
                 </div>
                 <div>
-                  <label className="block text-[10px] font-bold text-white/40 tracking-widest uppercase mb-2">Message</label>
+                  <label className="block text-[10px] font-bold text-slate-500 tracking-widest uppercase mb-2">Message</label>
                   <textarea
                     rows="5"
                     value={contactForm.message}
                     onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
                     placeholder="Write your query here..."
-                    className="w-full px-4 py-3.5 bg-white/5 border border-white/10 focus:border-[#D4AF37]/60 rounded-none text-white text-sm placeholder-white/20 focus:outline-none transition-colors duration-200 resize-none"
+                    className="w-full px-4 py-3.5 bg-slate-50 border border-slate-200 focus:border-[#D4AF37]/60 rounded-none text-slate-800 text-sm placeholder-slate-400 focus:outline-none transition-colors duration-200 resize-none"
                     required
                   />
                 </div>

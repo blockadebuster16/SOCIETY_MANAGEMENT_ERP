@@ -149,10 +149,16 @@ function Home() {
   useEffect(() => {
     const fetchGalleryPreviews = async () => {
       try {
-        const res = await api.get('/gallery');
-        if (res.data.success && res.data.photos && res.data.photos.length > 0) {
-          // Fall back to default if fewer than 6? We can just slice
-          setGalleryPreviews(res.data.photos.slice(0, 6));
+        const res = await api.get('/gallery/posts');
+        if (res.data.success && res.data.posts && res.data.posts.length > 0) {
+          // Map posts to a flat format for the home page preview
+          const mappedPosts = res.data.posts.slice(0, 6).map(post => ({
+            title: post.name,
+            image_url: post.gallery_images && post.gallery_images.length > 0 
+              ? post.gallery_images[0].image_url 
+              : 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80'
+          }));
+          setGalleryPreviews(mappedPosts);
         }
       } catch (err) {
         console.error('Failed to fetch gallery previews', err);

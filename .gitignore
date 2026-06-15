@@ -8,13 +8,12 @@ client/dist/
 client/build/
 
 # ── Environment variables (NEVER commit secrets) ──────
-.env
+# client/.env is safe to commit (only public VITE_ vars, no secrets)
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
 server/.env
-client/.env
 
 # ── Mock / local database ─────────────────────────────
 server/db/mockDb.json

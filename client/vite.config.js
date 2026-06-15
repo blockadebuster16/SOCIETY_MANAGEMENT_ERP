@@ -14,9 +14,9 @@ export default defineConfig({
     port: 3000,
     proxy: {
       '/api': {
-        target: 'http://localhost:5000',
+        target: 'https://society-management-erp-b1lf.onrender.com',
         changeOrigin: true,
-        secure: false,
+        secure: true,
       },
     },
   },
